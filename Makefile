@@ -29,7 +29,7 @@ BROWSER := python -c "$$BROWSER_PYSCRIPT"
 help:
 	@python -c "$$PRINT_HELP_PYSCRIPT" < $(MAKEFILE_LIST)
 
-clean: clean-build clean-pyc clean-test ## remove all build, test, coverage and Python artifacts
+clean: clean-build clean-pyc clean-test clean-dev ## remove all artifacts
 
 clean-build: ## remove build artifacts
 	rm -fr build/
@@ -49,6 +49,10 @@ clean-test: ## remove test and coverage artifacts
 	rm -f .coverage
 	rm -fr htmlcov/
 	rm -fr .pytest_cache
+
+clean-dev: ## remove development artifacts
+	rm -fr .mypy_cache
+	find . -name '*@neomake*' -exec rm -fr {} +
 
 lint: ## check style with flake8
 	flake8 pychoreo tests
