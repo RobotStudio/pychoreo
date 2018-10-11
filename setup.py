@@ -13,6 +13,9 @@ with open('HISTORY.rst') as history_file:
 
 requirements = [
     'Click>=6.0',
+    'consulate>=0.6.0',
+    'grpcio-tools>=1.15.0',
+    'googleapis-common-protos>=1.5.3',
 ]
 
 setup_requirements = [
