@@ -3,14 +3,45 @@
 """Main module."""
 
 import time
+import os
 
-from pychoreo.services import Service
+import hcl
+
+from pychoreo.service import Service
 
 
 class Choreo:
     _svcs: dict = {}
 
-    def __init__(self, name, services: dict, *args, **kwargs):
+    def __init__(self, name, services: dict, **kwargs) -> None:
         self.name = name
+        self.config = self._load_config(kwargs.pop("config", None))
+
+        # Push configuration out to consul
+        #self._publish_config()
+
         for name_, params in services.items():
             self._svcs[name_] = Service(name_, **params)
+
+    def _load_config(self, config):
+        """Look for and load a configuration from HCL or JSON.
+
+        By default will attempt to load config.hcl or config.json from the
+        local directory, if the parameter isn't provided.
+        """
+        root_path = os.path.dirname(os.path.abspath(__file__))
+        config_file = config
+
+        if config_file is None:
+            if os.path.isfile(f"{root_path}/config.hcl"):
+                config_file = f"{root_path}/config.hcl"
+            elif os.path.isfile(f"{root_path}/config.json"):
+                config_file = f"{root_path}/config.json"
+
+        # Try loading it as hcl
+        if os.path.isfile(config_file):
+            with open(config_file, 'r') as f_p:
+                return hcl.load(f_p)
+
+        # Default to an empty config
+        return {}

@@ -8,12 +8,13 @@ from pychoreo.pychoreo import Choreo
 
 
 @click.command()
-def main(args=None):
+@click.option('-d', '--delete', flag=True,
+        help="Remove the service from the service registry")
+@click.argument('name')
+def main(flag, name, args=None):
     """Console script for pychoreo."""
-    click.echo("Replace this message by putting your code into "
-               "pychoreo.cli.main")
-    click.echo("See click documentation at http://click.pocoo.org/")
-    c = Choreo()
+    click.echo(f"Launching service {name}")
+    c = Choreo(name, {})
     return 0
 
 

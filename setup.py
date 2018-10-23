@@ -16,6 +16,7 @@ requirements = [
     'consulate>=0.6.0',
     'grpcio-tools>=1.15.0',
     'googleapis-common-protos>=1.5.3',
+    'pyhcl>=0.3.10',
 ]
 
 setup_requirements = [
