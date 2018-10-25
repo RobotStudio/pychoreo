@@ -19,10 +19,17 @@ def test_cli():
     assert 'Show this message and exit.' in result.output
 
 
-def test_cli_with_name():
+def test_cli_with_invalid_command():
     """Test the CLI."""
     runner = CliRunner()
     result = runner.invoke(cli.main, ['test'])
+    assert result.exit_code == 2
+
+
+def test_cli_with_create_name():
+    """Test the CLI."""
+    runner = CliRunner()
+    result = runner.invoke(cli.main, ['create', 'test'])
     assert result.exit_code == 0
     assert 'Launching service test' in result.output
 
@@ -30,6 +37,6 @@ def test_cli_with_name():
 def test_cli_remove_name():
     """Test the CLI."""
     runner = CliRunner()
-    result = runner.invoke(cli.main, ['-d', 'test'])
+    result = runner.invoke(cli.main, ['destroy', 'test'])
     assert result.exit_code == 0
     assert 'Removing service test' in result.output
