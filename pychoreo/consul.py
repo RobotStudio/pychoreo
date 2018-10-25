@@ -6,7 +6,7 @@ import socket
 from contextlib import closing
 import json
 
-from consulate import Consul
+from consul import Consul
 
 
 class ConsulFacade:
@@ -17,9 +17,9 @@ class ConsulFacade:
 
     port: int = 0
 
-    def __init__(self, app_name, service_name, datacenter='dc1'):
+    def __init__(self, app_name, service_name=None, datacenter='dc1'):
         self.app_name = app_name
-        self.service_name = service_name
+        self.service_name = app_name if service_name is None else service_name
         self.dc = datacenter
 
         self.update()
@@ -38,16 +38,18 @@ class ConsulFacade:
     def create_service(self, **kwargs) -> int:
         port = kwargs.pop('port', None)
         port_ = self._get_new_port() if port is None else port
-        if self.agent.service.register(self.service_name, **kwargs):
+        if self._consul.agent.service.register(self.service_name, **kwargs):
             self.port = port_
             return True
         raise ResourceWarning("Could not register new service '{name}'.")
         return False
 
-    def get_service(self) -> dict:
-        return json.loads(self._consul.catalog.service(self.name))[0]
+    def get_service(self, service_name=None) -> dict:
+        name = self.service_name if service_name is None else service_name
+        return json.loads(self._consul.catalog.service(name))[0]
 
-    def destroy_service(self, name) -> bool:
+    def remove_service(self, service=None) -> bool:
+        name = self.service_name if service is None else service['ServiceName']
         return self._consul.agent.service.deregister(name)
 
     def get(self, key=None, app_name=None, service_name=None):

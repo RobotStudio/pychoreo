@@ -16,7 +16,7 @@ def test_cli():
     runner = CliRunner()
     result = runner.invoke(cli.main, ['--help'])
     assert result.exit_code == 0
-    assert '--help  Show this message and exit.' in result.output
+    assert 'Show this message and exit.' in result.output
 
 
 def test_cli_with_name():
@@ -27,7 +27,7 @@ def test_cli_with_name():
     assert 'Launching service test' in result.output
 
 
-def _test_cli_remove_name():
+def test_cli_remove_name():
     """Test the CLI."""
     runner = CliRunner()
     result = runner.invoke(cli.main, ['-d', 'test'])

@@ -7,14 +7,28 @@ import click
 from pychoreo.pychoreo import Choreo
 
 
-@click.command()
-@click.option('-d', '--delete', flag=True,
-        help="Remove the service from the service registry")
-@click.argument('name')
-def main(flag, name, args=None):
+@click.group()
+@click.pass_context
+def main(ctx):
     """Console script for pychoreo."""
+    pass
+
+@main.command()
+@click.pass_context
+@click.argument('name')
+def destroy(ctx, name):
+    """Destroy the service by name"""
+    click.echo(f"Removing service {name}")
+    Choreo.destroy(name=name)
+    return 0
+
+@main.command()
+@click.pass_context
+@click.argument('name')
+def create(ctx, name):
+    """Create the service by name"""
     click.echo(f"Launching service {name}")
-    c = Choreo(name, {})
+    Choreo.create(name=name)
     return 0
 
 
