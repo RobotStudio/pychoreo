@@ -2,6 +2,8 @@
 
 """Console script for pychoreo."""
 import sys
+from subprocess import call
+
 import click
 
 from pychoreo.pychoreo import Choreo
@@ -25,10 +27,13 @@ def destroy(ctx, name):
 @main.command()
 @click.pass_context
 @click.argument('name')
+@click.argument('request')
+@click.argument('response')
 def create(ctx, name):
-    """Create the service by name"""
+    """Create a shell wrapped service by name"""
     click.echo(f"Launching service {name}")
-    Choreo.create(name=name)
+    Choreo.create_shell_wrapper(name=name)
+    Choreo.serve()
     return 0
 
 

@@ -24,10 +24,19 @@ class Choreo:
         return inst
 
     @classmethod
+    def create_shell_wrapper(cls, **kwargs):
+        inst = cls(**kwargs)
+        return inst
+
+    @classmethod
     def destroy(cls, **kwargs):
         inst = cls(**kwargs)
         inst.svc.stop_service()
         return inst
+
+    def serve(self, grpc_parameters):
+        """Launch the configured API"""
+        self.svc.start_service()
 
     def start(self):
         """Launch the configured API"""
