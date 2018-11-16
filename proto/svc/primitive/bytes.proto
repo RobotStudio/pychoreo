@@ -1,8 +1,0 @@
-syntax = "proto3";
-package choreo;
-
-option go_package = "github.com/RobotStudio/choreo-msg/msg/primitive";
-
-message Bytes {
-  bytes data = 1;
-}

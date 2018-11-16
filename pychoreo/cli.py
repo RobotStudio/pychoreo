@@ -6,6 +6,7 @@ from subprocess import call
 
 import click
 
+from pychoreo.generator import compile_files
 from pychoreo.pychoreo import Choreo
 
 
@@ -34,6 +35,14 @@ def create(ctx, name):
     click.echo(f"Launching service {name}")
     Choreo.create_shell_wrapper(name=name)
     Choreo.serve()
+    return 0
+
+@main.command()
+@click.pass_context
+@click.argument('path')
+def generate(ctx, path):
+    """Generate protobuf definitions into module"""
+    compile_files(path)
     return 0
 
 
