@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+import "primitive/float.proto";
+import "primitive/header.proto";
+import "primitive/string.proto";
+
+import "geometric/transform.proto";
+import "geometric/twist.proto";
+import "geometric/wrench.proto";
+
+package choreo;
+
+option go_package = "github.com/RobotStudio/choreo-msg/msg/sensor";
+
+message JointState {
+  Header header = 1;
+  repeated String names = 2;
+  repeated Float64 positions = 3;
+  repeated Float64 velocities = 4;
+  repeated Float64 efforts = 5;
+}
+
+message MultiDOFJointState {
+  Header header = 1;
+  repeated Transform transforms = 2;
+  repeated Twist twists = 3;
+  repeated Wrench wrenches = 4;
+}

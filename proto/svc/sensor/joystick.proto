@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+import "primitive/float.proto";
+import "primitive/header.proto";
+import "primitive/int.proto";
+
+package choreo;
+
+option go_package = "github.com/RobotStudio/choreo-msg/msg/sensor";
+
+message Joy {
+  Header header = 1;
+  repeated Float32 axes = 2;
+  repeated Int32 buttons = 3;
+}
+
+message JoyFeedback {
+  enum FeedbackType {
+    LED = 0;
+    RUMBLE = 1;
+    BUZZER = 2;
+  }
+  FeedbackType type = 1;
+  UInt32 id  = 2;
+  Float32 intensity = 3;
+}
+
+message JoyFeedbackArray {
+  repeated JoyFeedback array = 1;
+}

@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+import "primitive/header.proto";
+import "primitive/string.proto";
+
+package choreo;
+
+option go_package = "github.com/RobotStudio/choreo-msg/msg/action";
+
+message GoalID {
+  google.protobuf.Timestamp stamp = 1;
+  String id = 2;
+}
+
+message GoalStatus {
+  GoalID goal_id = 1;
+  enum GoalStatusType {
+    PENDING = 0;
+    ACTIVE = 1;
+    PREEMPTED = 2;
+    SUCCEEDED = 3;
+    ABORTED = 4;
+    REJECTED = 5;
+    PREEMPTING = 6;
+    RECALLING = 7;
+    RECALLED = 8;
+    LOST = 9;
+  }
+  GoalStatusType status = 2;
+  String text = 3;
+}
+
+message GoalStatusArray {
+  Header header = 1;
+  repeated GoalStatus status_list = 2;
+}

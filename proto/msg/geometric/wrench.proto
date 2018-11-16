@@ -1,0 +1,17 @@
+syntax = "proto3";
+import "primitive/header.proto";
+import "geometric/vector.proto";
+
+package choreo;
+
+option go_package = "github.com/RobotStudio/choreo-msg/msg/geometric";
+
+message WrenchStamped {
+  Header header = 1;
+  Wrench wrench = 2;
+}
+
+message Wrench {
+  Vector3 force = 1;
+  Vector3 torque = 2;
+}

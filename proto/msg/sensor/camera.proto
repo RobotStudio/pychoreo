@@ -1,0 +1,66 @@
+syntax = "proto3";
+
+import "primitive/bool.proto";
+import "primitive/float.proto";
+import "primitive/header.proto";
+import "primitive/int.proto";
+import "primitive/string.proto";
+
+package choreo;
+
+option go_package = "github.com/RobotStudio/choreo-msg/msg/sensor";
+
+message RegionOfInterest {
+  UInt32 x_offset = 1;
+  UInt32 y_offset = 2;
+
+  UInt32 height = 3;
+  UInt32 width = 4;
+
+  Bool do_rectify = 5;
+}
+
+message CameraInfo {
+  Header header = 1; 
+
+  UInt32 height = 2;
+  UInt32 width = 3;
+
+  String distortion_model = 4;
+  repeated Float64 D = 5;
+  repeated Float64 K = 6;
+  repeated Float64 P = 7;
+
+  UInt32 binning_x = 8;
+  UInt32 binning_y = 9;
+
+  RegionOfInterest roi = 10;
+}
+
+message ChannelFloat32 {
+  String name = 1;
+  repeated Float32 values = 2;
+}
+
+message CompressedImage {
+  Header header = 1;
+  String format = 2;
+  repeated UInt32 data = 3;
+}
+
+message Image {
+  Header header = 1;
+  UInt32 height = 2;
+  UInt32 width = 3;
+  String encoding = 4;
+  Bool is_bigendian = 5;
+  UInt32 step = 6;
+  repeated UInt32 data = 7;
+}
+
+message ColorRGBA {
+  Float32 r = 1;
+  Float32 g = 2;
+  Float32 b = 3;
+  Float32 a = 4;
+}

@@ -1,0 +1,19 @@
+syntax = "proto3";
+import "primitive/header.proto";
+import "primitive/float.proto";
+
+package choreo;
+
+option go_package = "github.com/RobotStudio/choreo-msg/msg/geometric";
+
+message QuaternionStamped {
+  Header header = 1;
+  Quaternion quaternion = 2;
+}
+
+message Quaternion {
+  Float64 x = 1;
+  Float64 y = 2;
+  Float64 z = 3;
+  Float64 w = 4;
+}

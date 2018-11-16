@@ -1,0 +1,25 @@
+syntax = "proto3";
+import "primitive/header.proto";
+import "geometric/point.proto";
+
+package choreo;
+
+option go_package = "github.com/RobotStudio/choreo-msg/msg/geometric";
+
+message PolygonStamped {
+  Header header = 1;
+  Polygon polygon = 2;
+}
+
+message Polygon32Stamped {
+  Header header = 1;
+  Polygon32 polygon = 2;
+}
+
+message Polygon {
+  repeated Point points = 1;
+}
+
+message Polygon32 {
+  repeated Point32 points = 1;
+}

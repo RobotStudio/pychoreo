@@ -1,0 +1,28 @@
+syntax = "proto3";
+import "primitive/header.proto";
+import "primitive/float.proto";
+import "geometric/vector.proto";
+
+package choreo;
+
+option go_package = "github.com/RobotStudio/choreo-msg/msg/geometric";
+
+message AccelStamped {
+  Header header = 1;
+  Accel accel = 2;
+}
+
+message AccelWithCovarianceStamped {
+  Header header = 1;
+  AccelWithCovariance accel = 2;
+}
+
+message AccelWithCovariance {
+  Accel accel = 1;
+  repeated Float64 covariance = 2;
+}
+
+message Accel {
+  Vector3 linear = 1;
+  Vector3 angular = 2;
+}

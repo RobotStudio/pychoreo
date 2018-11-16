@@ -1,0 +1,20 @@
+syntax = "proto3";
+package choreo;
+
+option go_package = "github.com/RobotStudio/choreo-msg/msg/primitive";
+
+message Fixed32Array {
+  repeated Fixed32 data = 1;
+}
+
+message Fixed32 {
+  uint32 data = 1;
+}
+
+message Fixed64Array {
+  repeated Fixed64 data = 1;
+}
+
+message Fixed64 {
+  uint64 data = 1;
+}

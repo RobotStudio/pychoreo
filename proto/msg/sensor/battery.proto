@@ -1,0 +1,63 @@
+syntax = "proto3";
+
+import "primitive/bool.proto";
+import "primitive/float.proto";
+import "primitive/header.proto";
+import "primitive/int.proto";
+import "primitive/string.proto";
+
+package choreo;
+
+option go_package = "github.com/RobotStudio/choreo-msg/msg/sensor";
+
+message BatteryState {
+  enum Status {
+    STATUS_UNKNOWN = 0;
+    STATUS_CHARGING = 1;
+    STATUS_DISCHARGING = 2;
+    STATUS_NOT_CHARGING = 3;
+    STATUS_FULL = 4;
+  }
+  Status status = 1;
+
+  enum Health {
+    HEALTH_UNKNOWN = 0;
+    HEALTH_GOOD = 1;
+    HEALTH_OVERHEAT = 2;
+    HEALTH_DEAD = 3;
+    HEALTH_OVERVOLTAGE = 4;
+    HEALTH_UNSPEC_FAILURE = 5;
+    HEALTH_COLD = 6;
+    HEALTH_WATCHDOG_TIMER_EXPIRE = 7;
+    HEALTH_SAFETY_TIMER_EXPIRE = 8;    
+  }
+  Health health = 2;
+
+  enum Technology {
+    TECHNOLOGY_UNKNOWN = 0;
+    TECHNOLOGY_NIMH = 1;
+    TECHNOLOGY_LION = 2;
+    TECHNOLOGY_LIPO = 3;
+    TECHNOLOGY_LIFE = 4;
+    TECHNOLOGY_NICD = 5;
+    TECHNOLOGY_LIMN = 6;
+  }
+  Technology technology = 3;
+
+  Header header = 4;
+  Float32 voltage = 5;
+  Float32 current = 6;
+  Float32 charge = 7;
+  Float32 capacity = 8;
+  Float32 design_capacity = 9;
+  Float32 percentage = 10;
+  UInt32 power_supply_status = 12;
+  UInt32 power_supply_health = 13;
+  UInt32 power_supply_technology = 14;
+  Bool present = 15;
+
+  Float32 cell_voltage = 16;
+
+  String location = 17;
+  String serial_number = 18;
+}

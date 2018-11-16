@@ -1,0 +1,17 @@
+syntax = "proto3";
+import "primitive/header.proto";
+
+package choreo;
+
+option go_package = "github.com/RobotStudio/choreo-msg/msg/geometric";
+
+message Vector3Stamped {
+  Header header = 1;
+  Vector3 vector = 2;
+}
+
+message Vector3 {
+  double x = 1;
+  double y = 2;
+  double z = 3;
+}
