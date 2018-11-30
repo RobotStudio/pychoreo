@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+import "msg/primitive/string.proto";
+
+package choreo;
+
+option go_package = "github.com/RobotStudio/choreo-svc/svc";
+
+service Echo {
+  rpc Echo(String) returns (String) {}
+}

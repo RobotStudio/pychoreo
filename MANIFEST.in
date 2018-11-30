@@ -4,6 +4,7 @@ include HISTORY.rst
 include LICENSE
 include README.rst
 graft pychoreo/msg
+graft pychoreo/svc
 
 recursive-include tests *
 recursive-exclude * __pycache__

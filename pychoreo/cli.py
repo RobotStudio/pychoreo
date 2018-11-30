@@ -16,6 +16,7 @@ def main(ctx):
     """Console script for pychoreo."""
     pass
 
+
 @main.command()
 @click.pass_context
 @click.argument('name')
@@ -24,6 +25,7 @@ def destroy(ctx, name):
     click.echo(f"Removing service {name}")
     Choreo.destroy(name=name)
     return 0
+
 
 @main.command()
 @click.pass_context
@@ -37,9 +39,10 @@ def create(ctx, name):
     Choreo.serve()
     return 0
 
+
 @main.command()
 @click.pass_context
-@click.argument('path')
+@click.option('-p', '--path', default="proto/svc")
 def generate(ctx, path):
     """Generate protobuf definitions into module"""
     compile_files(path)
