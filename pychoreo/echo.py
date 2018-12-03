@@ -5,17 +5,17 @@ from concurrent import futures
 
 import grpc
 
-from pychoreo import svc
+from pychoreo.svc import echo_pb2, echo_pb2_grpc
 
 
-class Echo(svc.echo_pb2_grpc.EchoServicer):
+class Echo(echo_pb2_grpc.EchoServicer):
     def echo(self, request, context):
-        return svc.echo_pb2.Echo(data=request.data)
+        return echo_pb2.Echo(data=request.data)
 
 
-def serve():
+def echo_srv():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
-    svc.echo_pb2_grpc.add_EchoServicer_to_server(Echo(), server)
+    echo_pb2_grpc.add_EchoServicer_to_server(Echo(), server)
 
     server.add_insecure_port('[::]:50051')
     server.start()
@@ -28,4 +28,4 @@ def serve():
 
 
 if __name__ == "__main__":
-    serve()
+    srv()

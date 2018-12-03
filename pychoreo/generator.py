@@ -7,14 +7,14 @@ DEST_PREFIX = "pychoreo"
 
 
 def generate(file):
-    pwd = os.path.dirname(os.path.realpath(__file__))
+    #pwd = os.path.dirname(os.path.realpath(__file__))
     cwd = os.getcwd()
     args = ("",
             f"-I{cwd}",
             f"-I/usr/local/include",
             f"-I/usr/include",
-            f"--python_out={pwd}/svc",
-            f"--grpc_python_out={pwd}/svc",
+            f"--python_out={cwd}/../../{DEST_PREFIX}/svc",
+            f"--grpc_python_out={cwd}/../../{DEST_PREFIX}/svc",
             f"{file}")
     protoc.main(args)
 
@@ -35,4 +35,4 @@ def compile_files(srcpath):
 
 
 if __name__ == "__main__":
-    compile_files(f"{SRC_PREFIX}/msg")
+    compile_files(f"{SRC_PREFIX}/svc")

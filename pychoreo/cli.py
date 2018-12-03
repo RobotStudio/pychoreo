@@ -19,6 +19,15 @@ def main(ctx):
 
 @main.command()
 @click.pass_context
+@click.option('-p', '--path', default="proto/svc")
+def generate(ctx, path):
+    """Generate protobuf definitions into module"""
+    compile_files(path)
+    return 0
+
+
+@main.command()
+@click.pass_context
 @click.argument('name')
 def destroy(ctx, name):
     """Destroy the service by name"""
@@ -36,16 +45,38 @@ def create(ctx, name):
     """Create a shell wrapped service by name"""
     click.echo(f"Launching service {name}")
     Choreo.create_shell_wrapper(name=name)
-    Choreo.serve()
+    Choreo.srv()
+    return 0
+
+
+@main.group()
+@click.pass_context
+def srv(ctx):
+    """Create an echo service"""
+    click.echo(f"Launching service")
+    ch = Choreo.create_echo_server()
+    ch.serve()
+    return 0
+
+
+@srv.command()
+@click.pass_context
+def echo(ctx):
+    """Create an echo service"""
+    click.echo(f"Service: echo")
+    ch = Choreo.create_echo_server()
+    ch.srv()
     return 0
 
 
 @main.command()
 @click.pass_context
-@click.option('-p', '--path', default="proto/svc")
-def generate(ctx, path):
-    """Generate protobuf definitions into module"""
-    compile_files(path)
+@click.argument('text')
+def echo2(ctx, text):
+    """Create an echo service"""
+    click.echo(f"Launching echo service")
+    Choreo.create_echo(text=text)
+    Choreo.serve()
     return 0
 
 

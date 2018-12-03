@@ -7,7 +7,7 @@ import os
 
 import hcl
 
-#from pychoreo import echo
+from pychoreo.echo import Echo, echo_srv
 from pychoreo.service import Service
 from pychoreo.config import Config
 
@@ -17,12 +17,19 @@ class Choreo:
         self.config = Config(**kwargs)
         self.name = kwargs.pop("name", __name__)
         self.svc = Service(app_name=self.name, **kwargs)
-        #self.echo = echo.Echo()
 
     @classmethod
     def create(cls, **kwargs):
         inst = cls(**kwargs)
         inst.svc.start_service()
+        return inst
+
+    @classmethod
+    def create_echo_service(cls, **kwargs):
+        name = kwargs.pop('name', "echo")
+        inst = cls(name=name, **kwargs)
+        inst.server = Echo()
+        #inst.svc.start_service()
         return inst
 
     @classmethod
@@ -36,10 +43,10 @@ class Choreo:
         inst.svc.stop_service()
         return inst
 
-    def serve(self, grpc_parameters=None):
+    def srv(self, grpc_parameters=None):
         """Launch the configured API"""
         self.svc.start_service()
-        #echo.serve()
+        echo_srv()
 
     def start(self):
         """Launch the configured API"""
